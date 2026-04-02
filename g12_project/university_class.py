@@ -16,8 +16,8 @@ class University(Gclass):
 def __init__(self, uni_id, uni_name, foundation_date):
   super().__init__()
   self._uni_id = int(uni_id)
-  self._uni_name = uni_name
-  self._foundation_date = foundation_date 
+  self.uni_name = uni_name
+  self.foundation_date = foundation_date 
 
   University.obj[self._uni_id] = self
   University.lst.append(self._uni_id)
@@ -28,12 +28,14 @@ def uni_id(self):
 
 @property
 def uni_name(self):
-  return self._uni_name
+  return self.uni_name
 
 @property
 def foundation_date(self):
-  return self._foundation_date
+  return self.foundation_date
 
+def __str__(self):
+        return f"University(ID: {self._uni_id}, Univ ID: {self.uni_name}, Obs: {self.foundation_date})"
 
 
 
