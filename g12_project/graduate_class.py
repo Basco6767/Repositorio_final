@@ -2,7 +2,7 @@
 """
 Created on Thu Apr  2 17:09:19 2026
 
-@author: tania
+@author: Tania Tavares
 """
 import Gclass
 class University(Gclass):
