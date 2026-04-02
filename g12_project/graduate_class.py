@@ -4,7 +4,8 @@ Created on Thu Apr  2 17:09:19 2026
 
 @author: vasco
 """
-class Graduate:
+import Gglass
+class Graduate(Gclass):
     def __init__(self, graduate_id, university_id, observations):
         self._graduate_id = graduate_id
         self._university_id = university_id
