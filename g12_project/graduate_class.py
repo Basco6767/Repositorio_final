@@ -5,7 +5,7 @@ Created on Thu Apr  2 17:09:19 2026
 @author: Tania Tavares
 """
 import Gclass
-class University(Gclass):
+class Graduate(Gclass):
   obj = dict()
   lst = list()
   pos = 0
