@@ -19,8 +19,8 @@ class Graduate(Gclass):
       self._university_id = university_id
       self.observations = observations
       
-      University.obj[self._graduate_id] = self
-      University.lst.append(self._graduate_id)
+      Graduate.obj[self._graduate_id] = self
+      Graduate.lst.append(self._graduate_id)
       
       @property
       def graduate_id(self):
