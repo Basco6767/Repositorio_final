@@ -25,7 +25,7 @@ class Gclass:
         try:
             conn = sqlite3.connect(cls.db_name)
             cursor = conn.cursor()
-            # O nome da tabela deve ser igual ao nome da classe (ex: 'University')
+
             cursor.execute(f"SELECT * FROM {cls.__name__}")
             rows = cursor.fetchall()
 
@@ -49,7 +49,7 @@ class Gclass:
                 conn = sqlite3.connect(cls.db_name)
                 cursor = conn.cursor()
                 
-                # A chave primária é assumida como sendo o primeiro elemento de 'att'
+           
                 pk_column = cls.att[0] 
                 
                 cursor.execute(f"DELETE FROM {cls.__name__} WHERE {pk_column} = ?", (code,))
