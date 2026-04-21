@@ -12,18 +12,21 @@ class University(Gclass):
     pos = 0
     sortkey = ''
     att = ['_uni_id', '_uni_name', '_foundation_date']
-    des = ['University Id', 'University Name', 'Foundation Date']
-    path = 'universidades_alumni.db' # Ensure the path is defined
+    des = ["_id", 'University Name', 'Foundation Date']
+    path = 'universidades_alumni.db' 
 
-    def __init__(self, uni_id, uni_name, foundation_date):
+    def __init__(self, _id, uni_name, foundation_date):
         super().__init__()
       
-        self._uni_id = University.get_id(uni_id)
+
+        self._id =_id
         self._uni_name = uni_name
         self._foundation_date = foundation_date 
 
+
         University.obj[self._uni_id] = self
-        University.lst.append(self._uni_id)
+        if self._uni_id not in University.lst:
+            University.lst.append(self._uni_id)
 
     @property
     def uni_id(self):

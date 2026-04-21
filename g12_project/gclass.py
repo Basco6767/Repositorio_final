@@ -51,6 +51,8 @@ class Gclass:
                 
            
                 pk_column = cls.att[0] 
+                if pk_column.startswith('_'):
+                    pk_column = pk_column[1:]
                 
                 cursor.execute(f"DELETE FROM {cls.__name__} WHERE {pk_column} = ?", (code,))
                 conn.commit()
@@ -62,8 +64,15 @@ class Gclass:
 
     @classmethod
     def sort(cls, attrib, reverse=False):
-        """Ordena a lista baseada num atributo (lida automaticamente com o prefixo '_')."""
-        real_attrib = attrib if hasattr(cls.obj[cls.lst[0]], attrib) else f"_{attrib}"
+        """Ordena a lista baseada num atributo."""
+        if not cls.lst:
+            return 
+    
+   
+        exemplo_obj = cls.obj[cls.lst[0]]
+        real_attrib = attrib if hasattr(exemplo_obj, attrib) else f"_{attrib}"
+        
+        
         cls.lst.sort(key=lambda code: getattr(cls.obj[code], real_attrib), reverse=reverse)
 
     @classmethod
@@ -84,9 +93,8 @@ class Gclass:
     def next(cls):
         if cls.pos < len(cls.lst) - 1:
             cls.pos += 1
-        if cls.lst:
             return cls.obj[cls.lst[cls.pos]]
-        return None
+        return None  # Importante: retorna None se chegar ao fim
 
     @classmethod
     def previous(cls):
@@ -102,3 +110,13 @@ class Gclass:
             cls.pos = len(cls.lst) - 1
             return cls.obj[cls.lst[cls.pos]]
         return None
+    
+    @classmethod
+    def find(cls, value, attrib):
+        real_attrib = attrib if attrib.startswith('_') else f"_{attrib}"
+        return [cls.obj[code] for code in cls.lst if getattr(cls.obj[code], real_attrib) == value]
+    
+    def get_id(self):
+   
+        pk_attrib = self.__class__.att[0] 
+        return getattr(self, pk_attrib)

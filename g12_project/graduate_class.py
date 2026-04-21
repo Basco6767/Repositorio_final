@@ -20,7 +20,8 @@ class Graduate(Gclass):
         self.observations = observations 
         
         Graduate.obj[self._graduate_id] = self
-        Graduate.lst.append(self._graduate_id)
+        if self._graduate_id not in Graduate.lst:
+            Graduate.lst.append(self._graduate_id)
       
     @property
     def graduate_id(self):

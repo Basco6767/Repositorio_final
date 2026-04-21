@@ -14,21 +14,21 @@ class Membership(Gclass):
     sortkey = ""
 
     path = "universidades_alumni.db"
+    
+    att = ["_id", "_graduate_id", "_association_id", "_date"]
+    des = ["membership_id", "Graduate ID", "Association ID", "Date"]
 
-    att = ["_membership_id", "_graduate_id", "_association_id", "_date"]
-    des = ["Membership ID", "Graduate ID", "Association ID", "Date"]
-
-    def __init__(self, membership_id, graduate_id, association_id, date):
+    def __init__(self, _id, graduate_id, association_id, registration_date):
         super().__init__()
     
-        self._membership_id = Membership.get_id(membership_id)
+        self._id = Membership.get_id(_id)
         self._graduate_id = graduate_id
         self._association_id = association_id
-        self._date = date
+        self._registration_date = registration_date
         
-
         Membership.obj[self._membership_id] = self
-        Membership.lst.append(self._membership_id)
+        if self._membership_id not in Membership.lst:
+            Membership.lst.append(self._membership_id)
 
     @property
     def membership_id(self):

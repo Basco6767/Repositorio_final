@@ -14,7 +14,6 @@ def main():
     db = "universidades_alumni.db"
 
     print("--- 1. Lendo Base de Dados ---")
-
     University.read(db)
     Graduate.read(db)
     Association.read(db)
@@ -22,40 +21,34 @@ def main():
     
     print(f"Dados em memória: {len(University.lst)} Universidades, {len(Graduate.lst)} Graduados.")
 
-    print("\n--- 2. Teste de Inserção (Membership) ---")
-   
-    if len(Graduate.lst) > 0 and len(Association.lst) > 0:
-     
-        g_id = Graduate.lst[0]
-        a_id = Association.lst[0]
-        
-       
-        nova_inscricao = Membership(0, g_id, a_id, "2026-04-07")
-        
-      
-        try:
-            Membership.insert(nova_inscricao.membership_id)
-            print(f"Sucesso: Inscrição gravada na DB: {nova_inscricao}")
-        except Exception as e:
-            print(f"Erro ao gravar na DB: {e}")
-    else:
-        print("Aviso: Teste de inserção abortado (Tabelas Graduate ou Association vazias).")
-
-    print("\n--- 3. Lista de Inscrições Ativas (Navegação) ---")
-  
-    m = Membership.first()
+    print("\n--- 2. Lista de Associações (Navegação) ---")
+ 
+    index = Membership.first()
+    if index is not None and index < len(Membership.lst):
+        m = Membership.lst[index]
+        print(f"Uni ID: {m._university_id}")    
     if not m:
         print("Nenhuma inscrição encontrada.")
     else:
-        while m:
+        count = 0
+        while m and count < 5:
+          
+            print(f"Uni ID: {m._university_id} | Assoc ID: {m._association_id} | Data: {m._registration_date}")
+            
            
-            print(f"ID Inscrição: {m.membership_id} | Graduado: {m.graduate_id} | Assoc: {m.association_id} | Data: {m.date}")
-            m = Membership.nextrec()
+            current_id = m._university_id
+            m = Membership.next()
+            
+          
+            if m and m._university_id == current_id:
+                break
+            count += 1
 
-    print("\n--- 4. Teste de Procura (Shortcut find) ---")
-   
-    res = Graduate.find(1, "_university_id")
-    print(f"Existem {len(res)} graduados ligados à Universidade ID 1.")
+    print("\n--- 3. Teste de Ordenação ---")
+    if len(University.lst) > 0:
+        University.sort("uni_name") 
+        u = University.first()
+        print(f"Primeira universidade (A-Z): {u._name}")
 
 if __name__ == "__main__":
     main()

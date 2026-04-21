@@ -14,19 +14,20 @@ class Association(Gclass):
 
     path = "universidades_alumni.db"
 
-    att = ["_association_id", "_objective", "_designation"]
+    att = ["_id", "_objective", "_designation"]
     des = ["Association ID", "Objective", "Designation"]
 
-    def __init__(self, association_id, objective, designation):
+    def __init__(self, _id, objective, designation):
         super().__init__()
 
-        self._association_id = Association.get_id(association_id)
+        self._id = Association.get_id(_id)
         self._objective = objective
         self._designation = designation
         
        
         Association.obj[self._association_id] = self
-        Association.lst.append(self._association_id)
+        if self._association_id not in Association.lst:
+            Association.lst.append(self._association_id)
 
     @property
     def association_id(self):
