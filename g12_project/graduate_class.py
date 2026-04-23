@@ -4,7 +4,7 @@ Created on Thu Apr  2 17:09:19 2026
 
 @author: Tania Tavares
 """
-import Gclass
+from Gclass import Gclass
 class Graduate(Gclass):
     obj = dict()
     lst = list()
