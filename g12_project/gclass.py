@@ -94,7 +94,7 @@ class Gclass:
         if cls.pos < len(cls.lst) - 1:
             cls.pos += 1
             return cls.obj[cls.lst[cls.pos]]
-        return None  # Importante: retorna None se chegar ao fim
+        return None  
 
     @classmethod
     def previous(cls):
@@ -113,7 +113,7 @@ class Gclass:
     
     @classmethod
     def find(cls, value, attrib):
-        real_attrib = attrib if attrib.startswith('_') else f"_{attrib}"
+        real_attrib = attrib if hasattr(cls.obj[cls.lst[0]], attrib) else f"_{attrib}"
         return [cls.obj[code] for code in cls.lst if getattr(cls.obj[code], real_attrib) == value]
     
     def get_id(self):

@@ -48,10 +48,11 @@ def main():
         u = University.first()
         
        
-        nome = getattr(u, 'uni_name', getattr(u, '_uni_name', 'Nome desconhecido'))
+        nome = u.uni_name
         print(f"Primeira universidade (A-Z): {nome}")
     else:
         print("Aviso: Nenhuma universidade carregada para ordenar.")
 
 if __name__ == "__main__":
     main()
+    

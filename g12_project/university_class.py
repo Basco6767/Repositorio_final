@@ -15,7 +15,7 @@ class University(Gclass):
     des = ["ID", 'University Name', 'Foundation Date']
     path = 'universidades_alumni.db' 
 
-    def __init__(self, uni_id, uni_name, foundation_date): # Removido o _ do argumento
+    def __init__(self, uni_id, uni_name, foundation_date): 
         super().__init__()
     
         self._uni_id = uni_id
