@@ -10,45 +10,48 @@ from graduate_class import Graduate
 from association_class import Association
 from membership_class import Membership
 
+
 def main():
     db = "universidades_alumni.db"
 
     print("--- 1. Lendo Base de Dados ---")
-    University.read(db)
-    Graduate.read(db)
-    Association.read(db)
-    Membership.read(db)
+    try:
+        University.read(db)
+        Graduate.read(db)
+        Association.read(db)
+        Membership.read(db)
+    except Exception as e:
+        print(f"ERRO durante a leitura: {e}")
+        return
     
     print(f"Dados em memória: {len(University.lst)} Universidades, {len(Graduate.lst)} Graduados.")
 
-    print("\n--- 2. Lista de Associações (Navegação) ---")
- 
-    index = Membership.first()
-    if index is not None and index < len(Membership.lst):
-        m = Membership.lst[index]
-        print(f"Uni ID: {m._university_id}")    
-    if not m:
-        print("Nenhuma inscrição encontrada.")
+    if len(Membership.lst) == 0:
+        print("\n--- 2. Lista de Associações ---")
+        print("Aviso: A lista de Membership está vazia. Não há nada para navegar.")
     else:
+        print("\n--- 2. Lista de Associações (Navegação) ---")
+        m = Membership.first()
         count = 0
         while m and count < 5:
-          
-            print(f"Uni ID: {m._university_id} | Assoc ID: {m._association_id} | Data: {m._registration_date}")
-            
-           
-            current_id = m._university_id
+
+            u_id = getattr(m, '_university_id', 'N/A')
+            a_id = getattr(m, '_association_id', 'N/A')
+            print(f"Registo {count+1}: Uni ID: {u_id} | Assoc ID: {a_id}")
             m = Membership.next()
-            
-          
-            if m and m._university_id == current_id:
-                break
             count += 1
 
     print("\n--- 3. Teste de Ordenação ---")
     if len(University.lst) > 0:
+       
         University.sort("uni_name") 
         u = University.first()
-        print(f"Primeira universidade (A-Z): {u._name}")
+        
+       
+        nome = getattr(u, 'uni_name', getattr(u, '_uni_name', 'Nome desconhecido'))
+        print(f"Primeira universidade (A-Z): {nome}")
+    else:
+        print("Aviso: Nenhuma universidade carregada para ordenar.")
 
 if __name__ == "__main__":
     main()
