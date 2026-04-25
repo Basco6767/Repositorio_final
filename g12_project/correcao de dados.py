@@ -30,9 +30,10 @@ def importar_graduados(ficheiro_csv, db_name):
             # Verificação de segurança: a linha tem mesmo as 3 colunas?
             if len(row) >= 3:
                 cursor.execute("""
-                    INSERT OR IGNORE INTO Graduate (graduate_id, university_id, obs)
+                    INSERT OR IGNORE INTO Graduate (graduate_id, university_id, observations)
                     VALUES (?, ?, ?)
-                """, (row[0], row[1], row[2]))
+                """, (row[8], row[1], row[9]))
+
             else:
                 print(f"Aviso: Linha {i+2} ignorada por falta de colunas: {row}")
 

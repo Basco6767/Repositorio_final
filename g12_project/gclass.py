@@ -111,8 +111,11 @@ class Gclass:
             return cls.obj[cls.lst[cls.pos]]
         return None
     
+    
     @classmethod
     def find(cls, value, attrib):
+        if not cls.lst:
+            return []
         real_attrib = attrib if hasattr(cls.obj[cls.lst[0]], attrib) else f"_{attrib}"
         return [cls.obj[code] for code in cls.lst if getattr(cls.obj[code], real_attrib) == value]
     
